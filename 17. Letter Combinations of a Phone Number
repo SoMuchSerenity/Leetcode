@@ -1,0 +1,29 @@
+class Solution:
+    from itertools import product
+    def letterCombinations(self, digits: str) -> List[str]:
+        if len(digits) == 0:
+            return []
+        
+        else:
+            dictionary = {}
+            dictionary['2'] = 'abc'
+            dictionary['3'] = 'def'
+            dictionary['4'] = 'ghi'
+            dictionary['5'] = 'jkl'
+            dictionary['6'] = 'mno'
+            dictionary['7'] = 'pqrs'
+            dictionary['8'] = 'tuv'
+            dictionary['9'] = 'wxyz'
+            letter = []
+            reconstructed_letter = []
+            k = len(digits)
+            c = 0
+            
+            for i in digits:
+                letter.append(dictionary[i]) 
+            
+            for items in product(*letter):
+                reconstructed_letter.append(''.join(list(items)))
+                
+                
+        return reconstructed_letter
