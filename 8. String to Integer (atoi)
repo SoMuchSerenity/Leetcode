@@ -1,0 +1,35 @@
+### The edge case is kinda stupid, one of which is "  +  413". To me it is obvious that the expected outome will be 413 but the answer asks for 0.
+
+class Solution:
+    def myAtoi(self, s: str) -> int:
+        symbol = '+'
+        symbol_count = 0
+        number = ''  
+        for i in range(len(s)):
+            if s[i] == ' ' and number == '' and symbol_count == 0:
+                pass
+            elif s[i] in ('+','-') and number == '':
+                symbol = s[i]
+                symbol_count +=1
+                if symbol_count >=2:
+                    return 0
+            elif s[i] in '0123456789':
+                number += s[i]
+                
+            else:
+                break
+        
+        if number == '':
+            return 0
+        else:
+            if symbol == '-':
+                number = -int(number)
+
+            else:
+                number = int(number)
+            
+        if number > 2**31 -1:
+            return 2**31 -1
+        elif number < -2**31:
+            return -2**31
+        return number
