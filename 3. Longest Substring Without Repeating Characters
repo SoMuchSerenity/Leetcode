@@ -1,0 +1,24 @@
+A quick and good solution by others at the following link.
+https://leetcode.com/problems/longest-substring-without-repeating-characters/discuss/1624031/Simple-Python-solution-44ms
+Mine is rather memory saving but quite slow.
+
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        node = 0
+        max_length = 0
+        longest = ''
+        for j in range(len(s)-1):
+            for i in range(j,len(s)-1):
+                if s[i+1] in s[node:i+1]:
+                    length = i+1 - node
+                    if length > max_length:
+                        max_length = length
+                        longest = s[node:i+1]
+                    node  = j+1
+                    break
+
+
+        if len(s) -node > len(longest):
+            longest = s[node:]
+        return len(longest)
