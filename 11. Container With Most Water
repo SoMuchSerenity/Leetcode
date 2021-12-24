@@ -1,0 +1,21 @@
+### Classic question solved using Two-pointers. Inspired by the solution at the following link:
+https://leetcode.com/problems/container-with-most-water/discuss/1633791/python-fast-simple-faster-than-92
+
+
+class Solution:
+    def maxArea(self, height: List[int]) -> int:
+        n = len(height)
+        max_V = 0 
+        left,right = 0,n-1
+        while left < right:
+            
+            if height[left] < height[right]:
+                V = (right -left) * height[left]
+                left +=1
+            else:
+                V = (right -left) * height[right]
+                right -=1
+                
+            max_V = max(V,max_V)
+            
+        return max_V
