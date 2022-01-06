@@ -1,0 +1,27 @@
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        
+        def generate(n):
+            if n == 1:
+                return ['()']
+            s = generate(n-1)
+            listOfs = []
+            for i in s:
+                listOfs.append(list(i))
+
+            re = []
+            for item in listOfs:
+                for i in range(1,len(item)+1):
+                    cop = item[:]
+                    cop[i:i] = ['(',')']
+                    re.append(cop)
+
+            clean_re = []
+            for i in re:
+                clean_re.append(''.join(i))
+
+            clean_re = set(clean_re)
+            clean_re = list(clean_re)
+            return clean_re
+
+        return generate(n)
