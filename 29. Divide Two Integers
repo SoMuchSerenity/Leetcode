@@ -1,0 +1,80 @@
+### Be careful when using eval(string) as string can not be of form '03',etc.
+
+
+class Solution:
+    def divide(self, dividend: int, divisor: int) -> int:
+        
+        if dividend ==0:
+            return 0
+
+        s_divisor = str(divisor)   
+
+        string = str(abs(dividend))
+
+        current = string[:len(s_divisor)]
+
+        left = string[len(s_divisor):]
+
+        current = eval(current)
+
+        re = ''
+
+        def division(current,left,divisor,re):
+
+            count = 0
+
+
+            while current >= divisor:
+
+                current -= divisor
+
+                count += 1
+
+            re += str(count)
+
+            if len(left) == 0:
+
+                if len(re) == 1:
+                    return eval(re)
+                else:
+                    return eval(re.lstrip('0'))
+
+            if current ==0:
+                current = eval(left[0])
+
+            else:
+                current = eval(str(current) + left[0])
+
+            left = left[1:]
+
+            return division(current,left,divisor,re)
+
+        if dividend > 0 and divisor <0:
+
+            divisor = -divisor
+
+            result = -division(current,left,divisor,re)
+            if result < -2**31:
+                return -2**31
+            else:
+                return result
+
+        elif dividend <0 and divisor >0:
+
+            dividend = -dividend
+            result = -division(current,left,divisor,re)
+            if result < -2**31:
+                return -2**31
+            else:
+                return result
+
+        else:
+            dividend = abs(dividend)
+
+            divisor = abs(divisor)
+
+            if division(current,left,divisor,re) > 2**31-1:
+                return 2**31-1
+
+            else:
+                return division(current,left,divisor,re)
