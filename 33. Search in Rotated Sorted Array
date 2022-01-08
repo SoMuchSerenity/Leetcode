@@ -1,0 +1,84 @@
+class Solution:
+    def search(self, nums: List[int], target: int) -> int:
+        
+        upper = len(nums) -1
+        lower = 0
+
+        if len(nums) ==1:
+
+            if target == nums[0]:
+                return 0
+
+            else:
+                return -1
+
+        Max = max(nums)
+        Min = min(nums)
+
+        if target > Max or target < Min:
+            return -1
+
+        if nums[0] > nums[-1]:
+
+            if target == nums[0]:
+
+                return 0
+            
+            elif target == nums[-1]:
+            
+                return len(nums)-1
+
+            elif target< nums[0] and target> nums[-1]:
+
+                return -1
+
+            elif target> nums[0]:
+
+                upper = nums.index(Max)
+                lower = 0
+
+            elif target< nums[-1]:
+
+                upper = len(nums) -1
+                lower = nums.index(Min)
+
+            while True:
+
+                if nums[(upper+lower)//2+1] == target or nums[(upper+lower)//2] == target:
+
+                    return (nums[(upper+lower)//2+1] == target) * ((upper+lower)//2+1) + (nums[(upper+lower)//2] == target) *((upper+lower)//2)
+
+                elif nums[(upper+lower)//2+1 ]> target and nums[(upper+lower)//2]>target:
+
+                    upper = (upper+lower)//2
+
+                elif nums[(upper+lower)//2+1] < target and nums[(upper+lower)//2] < target:
+
+                    lower = (upper+lower)//2
+
+                elif nums[(upper+lower)//2+1] < target and target < nums[(upper+lower)//2]:
+
+                    return -1
+
+                elif nums[(upper+lower)//2+1] > target and target > nums[(upper+lower)//2]:
+                    return -1
+
+        else:
+
+            while True:
+
+                if nums[(upper+lower)//2 +1] == target or nums[(upper+lower)//2] == target:
+
+                    return (nums[(upper+lower)//2 +1] == target) * ((upper+lower)//2 +1) + (nums[(upper+lower)//2] == target) *((upper+lower)//2) 
+
+                elif nums[(upper+lower)//2 +1]> target and nums[(upper+lower)//2]>target:
+
+                    upper = (upper+lower)//2
+
+                elif nums[(upper+lower)//2 +1] < target and nums[(upper+lower)//2] < target:
+
+                    lower = (upper+lower)//2
+
+                elif nums[(upper+lower)//2 +1] > target and target > nums[(upper+lower)//2]:
+                    return -1
+                        
